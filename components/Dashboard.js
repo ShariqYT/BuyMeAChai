@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from 'next/navigation';
 import { updateProfile, fetchuser } from '@/actions/userAction';
@@ -26,7 +26,7 @@ const Dashboard = () => {
         } else {
             router.push('/login');
         }
-    }, [router, session, getData]);
+    }, [router, session]);
 
     const getData = async () => {
         let u = await fetchuser(session.user.name);
