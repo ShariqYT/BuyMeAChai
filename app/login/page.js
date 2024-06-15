@@ -8,6 +8,7 @@ const Login = () => {
     const { data: session } = useSession();
     const router = useRouter();
 
+
     useEffect(() => {
         document.title="Login - BuyMeAChai"
         if (session) {
@@ -25,6 +26,7 @@ const Login = () => {
             <div className="social-login-btn">
                 <div className="flex flex-col items-center justify-center gap-2 p-10">
                     <button
+                    onClick={() => signIn('google')}
                         className="flex items-center text-white w-64 border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium hover:bg-[#00d0ff] hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                         <svg className="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink"
                             viewBox="-0.5 0 48 48" version="1.1">

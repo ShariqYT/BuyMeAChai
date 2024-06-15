@@ -23,6 +23,7 @@ const PaymentPage = ({ params }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
+
     const getData = useCallback(async () => {
         let u = await fetchuser(params.username)
         setCurrentUser(u)
@@ -110,6 +111,8 @@ const PaymentPage = ({ params }) => {
 
     const formatAmount = 
         totalRaised.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 });
+
+        console.log(currentUser)
 
     return (
         <>
