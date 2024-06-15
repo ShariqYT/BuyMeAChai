@@ -111,9 +111,7 @@ const PaymentPage = ({ params }) => {
 
     const formatAmount = 
         totalRaised.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 });
-
-        console.log(currentUser)
-
+        
     return (
         <>
             <ToastContainer
