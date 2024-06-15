@@ -8,6 +8,7 @@ import { Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'; 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { notFound } from "next/navigation"
+import Image from 'next/image'
 
 const PaymentPage = ({ params }) => {
     const [paymentform, setPaymentform] = useState({
@@ -130,9 +131,9 @@ const PaymentPage = ({ params }) => {
             <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
             <div className='cover w-full relative'>
-                <img className='md:object-fill object-cover w-full md:h-[340px] h-[200px]' src={currentUser.coverPic} alt="cover pic" />
+                <Image width={2} height={2} unoptimized className='md:object-fill object-cover w-full md:h-[340px] h-[200px]' src={currentUser.coverPic} alt="cover pic" />
                 <div className='absolute -bottom-12 md:right-[47.5%] right-[39%]'>
-                    <img className='rounded-xl shadow-[0px_0px_10px_rgba(0,150,209,.5)] w-24 md:w-[150] md:h-[150]' src={currentUser.profilePic} alt="profile pic" />
+                    <Image width={2} height={2} unoptimized className='rounded-xl shadow-[0px_0px_10px_rgba(0,150,209,.5)] w-24 md:w-[150] md:h-[150]' src={currentUser.profilePic} alt="profile pic" />
                 </div>
             </div>
             <div className='info flex flex-col justify-center md:items-center my-20'>
@@ -164,7 +165,7 @@ const PaymentPage = ({ params }) => {
                                 if (p.done) {
                                     return (
                                         <li key={i} className='my-4 flex items-center gap-4 md:mx-4'>
-                                            <img className='md:w-[40] w-8' src="/user.png" alt="" />
+                                            <Image width={2} height={2} unoptimized className='md:w-[40] w-8' src="/user.png" alt="" />
                                             <p><span className='font-bold text-cyan-400'>{p.name}</span> donated <span className='font-bold text-yellow-400'> {formatAmount(p.amount)} </span>. <span className='text-gray-400 italic'>"{(p.message)}"</span></p>
                                         </li>
                                     )

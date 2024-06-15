@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
+import Image from 'next/image'
 
 const Navbar = () => {
     const { data: session } = useSession()
@@ -9,7 +10,7 @@ const Navbar = () => {
 
     return (
         <nav className='flex justify-between items-center bg-black text-white px-4 h-16'>
-            <Link href={'/'} className='logo font-bold text-lg flex justify-center items-center hover:text-cyan-400'>BuyMeAChai!<img className="drop-shadow-[0px_0px_5px_#a1a1a1]" width={50} src="/coffee.gif" alt="" /></Link>
+            <Link href={'/'} className='logo font-bold text-lg flex justify-center items-center hover:text-cyan-400'>BuyMeAChai!<Image width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="" /></Link>
             {/* <ul className='flex justify-between gap-4'>
                 <li>Home</li>
                 <li>About</li>
@@ -35,7 +36,7 @@ const Navbar = () => {
                                 <div className="rounded-lg bg-base-300 p-3 drop-shadow-xl divide-y divide-neutral">
                                     <div className="flex space-x-4 items-center p-4">
                                         <div className="flex mr-auto items-center space-x-4">
-                                            <img src={session.user.image} alt="Name" className="w-16 h-16 shrink-0 rounded-full" />
+                                            <Image width={2} height={2} unoptimized src={session.user.image} alt="Name" className="w-16 h-16 shrink-0 rounded-full" />
                                             <div className="space-y-2 flex flex-col flex-1 truncate">
                                                 <div className="relative leading-tight text-gray-900">
                                                     <span className="flex">

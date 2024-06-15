@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
@@ -5,7 +6,7 @@ export default function Home() {
   return (
     <>
       <div className="flex justify-center gap-4 items-center text-white h-[44vh] flex-col px-5 md:px-0">
-        <div className="text-2xl md:text-5xl flex items-center justify-center font-bold">Buy Me a Chai <span><img className="drop-shadow-[0px_0px_5px_#a1a1a1] w-20 md:w-28" src="/coffee.gif" alt="" /></span></div>
+        <div className="text-2xl md:text-5xl flex items-center justify-center font-bold">Buy Me a Chai <span><Image className="drop-shadow-[0px_0px_5px_#a1a1a1] w-20 md:w-28" width={2} height={2} src="/coffee.gif" alt="" /></span></div>
         <p className='text-center text-sm md:text-base md:text-left'>A crowd funding platform for creators. Get funded by your fans and followers. Start Now!</p>
         <div className="flex gap-4">
           <Link href={'/login'}>
@@ -23,15 +24,15 @@ export default function Home() {
         <h2 className="text-2xl md:text-3xl text-center my-14 font-bold">Your Fans can buy you a Chai</h2>
         <div className="flex flex-col md:flex-row gap-5 justify-around">
           <div className="item flex flex-col justify-between items-center space-y-3 text-center">
-            <img className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/fund.gif" alt="" />
+            <Image width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/fund.gif" alt="" />
             <p className="font-bold text-xl">Fans want to help</p>
           </div>
           <div className="item flex flex-col justify-between items-center space-y-3 text-center">
-            <img className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/coins.gif" alt="" />
+            <Image width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/coins.gif" alt="" />
             <p className="font-bold text-xl">Fans want to contribute</p>
           </div>
           <div className="item flex flex-col justify-between items-center space-y-3 text-center">
-            <img className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/group.gif" alt="" />
+            <Image width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/group.gif" alt="" />
             <p className="font-bold text-xl">Fans want to collaborate</p>
           </div>
         </div>
