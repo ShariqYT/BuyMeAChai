@@ -1,11 +1,11 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import Script from 'next/script'
 import { fetchuser, fetchpayment, initiate } from '@/actions/userAction'
 import { useSession } from 'next-auth/react'
 import { ToastContainer, toast } from 'react-toastify'
 import { Bounce } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'; 
+import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams, useRouter } from 'next/navigation'
 import { notFound } from "next/navigation"
 import Image from 'next/image'
@@ -23,14 +23,20 @@ const PaymentPage = ({ params }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
+    const getData = useCallback(async () => {
+        let u = await fetchuser(params.username)
+        setCurrentUser(u)
+        let dbpayments = await fetchpayment(params.username)
+        setPayments(dbpayments)
+    }, [params.username]);
+
     useEffect(() => {
         getData()
-    }, [])
-
+    }, [getData])  // Including getData as a dependency
 
     useEffect(() => {
         if (searchParams.get("paymentdone") == "true") {
-            toast('❣️ Thankyou for your appreciation', {
+            toast('❣️ Thank you for your appreciation', {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -43,20 +49,13 @@ const PaymentPage = ({ params }) => {
             });
         }
         router.push(`/${params.username}`)
-    }, [])
+    }, [params.username, router, searchParams])  // Including params.username, router, and searchParams as dependencies
 
     const handleChange = (e) => {
         setPaymentform({
             ...paymentform,
             [e.target.name]: e.target.value
         })
-    }
-
-    const getData = async () => {
-        let u = await fetchuser(params.username)
-        setCurrentUser(u)
-        let dbpayments = await fetchpayment(params.username)
-        setPayments(dbpayments)
     }
 
     const pay = async (amount) => {
@@ -142,7 +141,7 @@ const PaymentPage = ({ params }) => {
                     Show some supports for {currentUser.name}
                 </div>
                 <div className='text-md mt-5 text-center text-gray-400'>
-                {/* show only those whose payment is done */}
+                    {/* show only those whose payment is done */}
                     <p><span className='font-bold'>{completedPayments.length}</span> Supporters</p>
                     <p><span className='font-bold'>{formatAmount}</span> Raised</p>
                 </div>
