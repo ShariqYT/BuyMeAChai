@@ -20,26 +20,28 @@ const Dashboard = () => {
         razorpaysecret: '',
     });
 
+    const getData = useCallback(async () => {
+        if (session) {
+            let u = await fetchuser(session.user.name);
+            setForm({
+                name: u.name || '',
+                email: u.email || '',
+                username: u.username || '',
+                profilePic: u.profilePic || '',
+                coverPic: u.coverPic || '',
+                razorpayid: u.razorpayid || '',
+                razorpaysecret: u.razorpaysecret || ''
+            });
+        }
+    }, [session]);
+
     useEffect(() => {
         if (session) {
             getData();
         } else {
             router.push('/login');
         }
-    }, [router, session]);
-
-    const getData = async () => {
-        let u = await fetchuser(session.user.name);
-        setForm({
-            name: u.name || '',
-            email: u.email || '',
-            username: u.username || '',
-            profilePic: u.profilePic || '',
-            coverPic: u.coverPic || '',
-            razorpayid: u.razorpayid || '',
-            razorpaysecret: u.razorpaysecret || ''
-        });
-    };
+    }, [router, session, getData]);
 
     const handleChange = (e) => {
         setForm({
