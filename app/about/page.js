@@ -11,7 +11,7 @@ const About = () => {
                         <h2 className="text-2xl font-extrabold tracking-tight md:text-4xl ">
                             About BuyMeAChai!
                         </h2>
-                        <Image width={2} height={2} unoptimized className="w-[70px] md:w-100 drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="" />
+                        <Image priority={true}  width={2} height={2} unoptimized className="w-[70px] md:w-100 drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="" />
                     </div>
                     <p className="max-w-2xl mx-auto text-md text-gray-300 md:mt-4">
                         Empowering creators, one chai at a time.

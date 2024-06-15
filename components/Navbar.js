@@ -10,33 +10,23 @@ const Navbar = () => {
 
     return (
         <nav className='flex justify-between items-center bg-black text-white px-4 h-16'>
-            <Link href={'/'} className='logo font-bold text-lg flex justify-center items-center hover:text-cyan-400'>BuyMeAChai!<Image width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="" /></Link>
-            {/* <ul className='flex justify-between gap-4'>
-                <li>Home</li>
-                <li>About</li>
-                <li>Projects</li>
-                <li>Sign Up</li>
-                <li>Login</li>
-            </ul> */}
+            <Link href={'/'} className='logo font-bold text-lg flex justify-center items-center hover:text-cyan-400'>BuyMeAChai!<Image priority={true} width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="Coffee Gif" /></Link>
 
             <div className='flex items-center justify-center'>
-                {session && (
-                    <>
-                        <div className="dropdown relative" onBlur={() => setTimeout(() => {
-                            setShowDropDown(false)
-                        }, 200)} onClick={() => setShowDropDown(!showDropDown)}>
-                            <label tabIndex="0" className="flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                                <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>{session.user.name}</span>
-                                <svg width="12px" height="12px" className="h-2 mx-1 w-2 fill-current opacity-60 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
-                                    <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
-                                </svg>
-                            </label>
-
-                            <div tabIndex="0" className={`dropdown-content ${showDropDown ? "" : "hidden"} border border-sky-600 backdrop-blur-sm bg-[rgba(0,0,0,0.5)] absolute right-[10px] z-[1] menu shadow bg-base-300 rounded-xl w-80`}>
+                {session ? (
+                    <div className="relative" onBlur={() => setTimeout(() => setShowDropDown(false), 200)}>
+                        <button onClick={() => setShowDropDown(!showDropDown)} className="flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                            <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>{session.user.name}</span>
+                            <svg width="12px" height="12px" className="h-2 mx-1 w-2 fill-current opacity-60 inline-block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
+                                <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
+                            </svg>
+                        </button>
+                        {showDropDown && (
+                            <div className="border border-sky-600 backdrop-blur-sm bg-[rgba(0,0,0,0.5)] absolute right-0 z-10 mt-2 w-80 rounded-xl shadow-lg">
                                 <div className="rounded-lg bg-base-300 p-3 drop-shadow-xl divide-y divide-neutral">
                                     <div className="flex space-x-4 items-center p-4">
                                         <div className="flex mr-auto items-center space-x-4">
-                                            <Image width={2} height={2} unoptimized src={session.user.image} alt="Name" className="w-16 h-16 shrink-0 rounded-full" />
+                                            <Image priority={true} width={64} height={64} unoptimized src={session.user.image} alt={session.user.name} className="w-16 h-16 shrink-0 rounded-full" />
                                             <div className="space-y-2 flex flex-col flex-1 truncate">
                                                 <div className="relative leading-tight text-gray-900">
                                                     <span className="flex">
@@ -73,7 +63,6 @@ const Navbar = () => {
                                                     </span>
                                                 </button>
                                             </Link>
-
                                         </nav>
                                     </div>
                                     <div className="pt-2">
@@ -91,16 +80,16 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </>
-                )}
-                {!session && (<Link href={'/login'}>
-                    <button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                        <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                            Login
-                        </span>
-                    </button>
-                </Link>
+                        )}
+                    </div>
+                ) : (
+                    <Link href={'/login'}>
+                        <button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                                Login
+                            </span>
+                        </button>
+                    </Link>
                 )}
             </div>
         </nav>
