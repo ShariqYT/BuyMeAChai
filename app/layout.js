@@ -14,6 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+      <meta name="google-site-verification" content="jEAJb--5CmKi8Vki01te7J0SAjEz6dO-trepN8mHnto" />
+      </head>
       <body className='text-white bg-black bg-[radial-gradient(circle_500px_at_50%_200px,#00454a,transparent)]'>
         <SessionWrapper>
           <Navbar />
