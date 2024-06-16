@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <div className="flex justify-center gap-4 items-center text-white h-[44vh] flex-col px-5 md:px-0">
-        <div className="text-2xl md:text-5xl flex items-center justify-center font-bold">Buy Me a Chai <span><Image priority={true}  className="drop-shadow-[0px_0px_5px_#a1a1a1] w-20 md:w-28" width={2} height={2} src="/coffee.gif" alt="" /></span></div>
+        <div className="text-2xl md:text-5xl flex items-center justify-center font-bold">Buy Me a Chai <span><Image priority={true} unoptimized className="w-20 md:w-28" width={2} height={2} src="/coffee.gif" alt="" /></span></div>
         <p className='text-center text-sm md:text-base md:text-left'>A crowd funding platform for creators. Get funded by your fans and followers. Start Now!</p>
         <div className="flex gap-4">
           <Link href={'/login'}>

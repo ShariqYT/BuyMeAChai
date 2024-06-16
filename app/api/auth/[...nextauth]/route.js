@@ -1,78 +1,90 @@
 import NextAuth from 'next-auth'
-// import AppleProvider from 'next-auth/providers/apple'
-// import FacebookProvider from 'next-auth/providers/facebook'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
-// import EmailProvider from 'next-auth/providers/email'
 import GitHubProvider from 'next-auth/providers/github'
 import User from '@/models/User'
-import Payment from '@/models/Payment'
 import connectDB from '@/db/connectDb';
-
+import bcrypt from 'bcryptjs';
 
 export const authOptions = NextAuth({
     providers: [
-        // OAuth authentication providers...
+        CredentialsProvider({
+            name: 'credentials',
+            credentials: {},
+
+            async authorize(credentials) {
+                const { email, password } = credentials;
+                try {
+                    await connectDB();
+                    const user = await User.findOne({ email });
+
+                    if (!user) {
+                        return null;
+                    }
+
+                    const passwordMatch = await bcrypt.compare(password, user.password);
+                    if (!passwordMatch) {
+                        return null;
+                    }
+
+                    return user;
+                } catch (error) {
+                    console.error('Authorization error:', error);
+                    return null;
+                }
+            },
+        }),
         GitHubProvider({
             clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET
+            clientSecret: process.env.GITHUB_SECRET,
         }),
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET
+            clientSecret: process.env.GOOGLE_SECRET,
         }),
-        // AppleProvider({
-        //     clientId: process.env.APPLE_ID,
-        //     clientSecret: process.env.APPLE_SECRET
-        // }),
-        // FacebookProvider({
-        //     clientId: process.env.FACEBOOK_ID,
-        //     clientSecret: process.env.FACEBOOK_SECRET
-        // }),
-        // // Passwordless / email sign in
-        // EmailProvider({
-        //     server: process.env.MAIL_SERVER,
-        //     from: 'NextAuth.js <no-reply@example.com>'
-        // }),
     ],
+    session: {
+        strategy: 'jwt',
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+    pages: {
+        signIn: '/login',
+    },
     callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-            if (account.provider === 'github') {
-                await connectDB();
-                // Check if the user already exists
-                const currentUser = await User.findOne({ email: user.email });
-                if (!currentUser) {
-                    //create a new user
-                    const newUser = new User({
-                        name: user.name,
-                        email: user.email,
-                        username: user.email.split("@")[0],
-                    });
-                    await newUser.save();
+        async signIn({ user, account }) {
+            if (['github', 'google'].includes(account.provider)) {
+                try {
+                    await connectDB();
+                    const currentUser = await User.findOne({ email: user.email });
+                    if (!currentUser) {
+                        const newUser = new User({
+                            name: user.name,
+                            email: user.email,
+                            username: user.email.split("@")[0],
+                        });
+                        await newUser.save();
+                    }
+                    return true;
+                } catch (error) {
+                    console.error('Sign in error:', error);
+                    return false;
                 }
-                return true
             }
-            if (account.provider === 'google') {
-                await connectDB();
-                // Check if the user already exists
-                const currentUser = await User.findOne({ email: user.email });
-                if (!currentUser) {
-                    //create a new user
-                    const newUser = new User({
-                        name: user.name,
-                        email: user.email,
-                        username: user.email.split("@")[0],
-                    });
-                    await newUser.save();
-                }
-                return true
-            }
+            return true;
         },
-        async session({ session, token, user }) {
-            const dbUser = await User.findOne({ email: session.user.email })
-            session.user.name = dbUser.username
-            return session
+        async session({ session }) {
+            try {
+                await connectDB();
+                const dbUser = await User.findOne({ email: session.user.email });
+                if (dbUser) {
+                    session.user.name = dbUser.username;
+                }
+            } catch (error) {
+                console.error('Session callback error:', error);
+            }
+            return session;
         }
     }
-})
+});
 
-export { authOptions as GET, authOptions as POST }
+export { authOptions as GET, authOptions as POST };

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 
-const Login = () => {
+const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -14,28 +14,54 @@ const Login = () => {
     const router = useRouter();
 
     useEffect(() => {
-        document.title = "Login - BuyMeAChai";
+        document.title = "Signup - BuyMeAChai"
         if (session) {
             router.push('/dashboard');
         }
     }, [session, router]);
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!email || !password) {
+            setError('Please enter all fields');
+            return;
+        }
+
         try {
-            const result = await signIn('credentials', {
-                redirect: false,
-                email,
-                password
+
+            const resUserExists = await fetch('api/userExists', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
             });
-            if (result.error) {
-                setError(result.error);
+
+            const { user } = await resUserExists.json();
+
+            if (user) {
+                setError('User already exists');
+                return;
+            }
+
+            const res = await fetch('api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (res.ok) {
+                const form = e.target;
+                form.reset();
+                router.push('/login');
             } else {
-                router.push('/dashboard');
+                console.log("Something went wrong");
             }
         } catch (error) {
-            console.error(error);
-            setError('An unexpected error occurred.');
+            console.log(error);
         }
     }
 
@@ -56,7 +82,7 @@ const Login = () => {
                         className="border-[20px] border-transparent rounded-[20px] bg-cyan-950 shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2"
                     >
                         <h1 className="mt-1 mb-14 font-bold text-5xl text-gray-200 text-center cursor-default">
-                            Login
+                            Sign up
                         </h1>
                         {error && (<div className='border mb-8 dark:bg-red-200 dark:border-red-500 p-3 shadow-md  outline-none rounded-lg w-full ease-in-out duration-300'>
                             <p className="text-red-500 font-semibold">{error}</p>
@@ -85,20 +111,20 @@ const Login = () => {
                             <button className="button w-full disabled:opacity-50 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-md px-5 py-2.5 text-center me-2 mb-2"
                                 type="submit"
                             >
-                                LOGIN
+                                SIGNUP
                             </button>
                         </form>
                         <div className="flex flex-col mt-4 items-center justify-center text-sm">
                             <h3>
-                                <span className="cursor-default dark:text-gray-200">Don't have an account?</span>
+                                <span className="cursor-default dark:text-gray-200">Have an account?</span>
                                 <Link
                                     className="group text-blue-400 transition-all duration-100 ease-in-out"
-                                    href={'/signup'}
+                                    href={'/login'}
                                 >
                                     <span
                                         className="bg-left-bottom ml-1 bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out"
                                     >
-                                        Sign up
+                                        Login
                                     </span>
                                 </Link>
                             </h3>
@@ -151,4 +177,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Signup

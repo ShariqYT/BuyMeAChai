@@ -7,12 +7,50 @@ import Image from 'next/image'
 const Navbar = () => {
     const { data: session } = useSession()
     const [showDropDown, setShowDropDown] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
 
     return (
         <nav className='flex justify-between items-center bg-black text-white px-4 h-16'>
             <Link href={'/'} className='logo font-bold text-lg flex justify-center items-center hover:text-cyan-400'>BuyMeAChai!<Image priority={true} width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="Coffee Gif" /></Link>
 
-            <div className='flex items-center justify-center'>
+            {/* <div className="relative w-full max-w-xl mx-auto bg-cyan-950 rounded-lg">
+                <form onSubmit={handleSearch}>
+                    <input
+                        placeholder='e.g. shariqmohd737'
+                        className='rounded-xl h-12 w-full bg-transparent pl-4 outline-none border-2 border-cyan-400 shadow-md hover:outline-none text-white placeholder:text-gray-400 focus:ring-blue-500 focus:border-blue-500'
+                        type='text'
+                        name='query'
+                        id='query'
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <button
+                        type='submit'
+                        className='absolute inline-flex items-center h-10 px-4 py-2 text-sm text-white transition duration-150 ease-in-out rounded-lg border-2 border-cyan-400 outline-none right-1 top-1 bg-cyan-600 sm:px-6 sm:text-base sm:font-medium hover:bg-cyan-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500'
+                    >
+                        <svg className="-ml-0.5 sm:-ml-1 mr-2 w-4 h-4 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        Search
+                    </button>
+                </form>
+                {searchResults.length > 0 && (
+                    <div className='bg-red-500 absolute top-14 py-2 px-4 gap-3 w-full flex flex-col justify-center rounded-xl'>
+                        {searchResults.map((user) => (
+                            <div key={user._id} className='flex items-center gap-3'>
+                                <div className='w-10'>
+                                    <img src={user.image || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt={user.username} />
+                                </div>
+                                <p>@{user.username}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div> */}
+
+            <div className='flex items-center gap-32 justify-center'>
                 {session ? (
                     <div className="relative" onBlur={() => setTimeout(() => setShowDropDown(false), 200)}>
                         <button onClick={() => setShowDropDown(!showDropDown)} className="flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
@@ -86,7 +124,7 @@ const Navbar = () => {
                     <Link href={'/login'}>
                         <button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
                             <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                Login
+                                Login / Sign up
                             </span>
                         </button>
                     </Link>
