@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { useSession, signIn, signOut } from "next-auth/react"
 import Image from 'next/image'
-import Search from '@/app/search/page'
 
 const Navbar = () => {
     const { data: session } = useSession()
