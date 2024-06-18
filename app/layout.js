@@ -10,7 +10,6 @@ export const metadata = {
   title: "Buy Me A Chai - Fund your projects with Chai",
   description: "This website is a crowd funding platform for creators.",
 };
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">

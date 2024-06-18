@@ -4,10 +4,10 @@ const connectDB = async () => {
         const conn = await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
         });
-
+        console.log("DB Connected!")
     } catch (error) {
-        console.error(`Error: ${error.message}`);
-        process.exit(1);
+        console.error("DB Connection failed!");
+        console.error(error);
     }
 }
 

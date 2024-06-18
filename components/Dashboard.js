@@ -29,8 +29,8 @@ const Dashboard = () => {
                 username: u.username || '',
                 profilePic: u.profilePic || '',
                 coverPic: u.coverPic || '',
-                razorpayid: u.razorpayid || '',
-                razorpaysecret: u.razorpaysecret || ''
+                razorpayid: u.razorpayid || 'rzp_test_RJRpWLcXFSJq1p',
+                razorpaysecret: u.razorpaysecret || 'H3n33lLRnTOwlLCYKwT2a1TR'
             });
         }
     }, [session]);
