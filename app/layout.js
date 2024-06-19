@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
                 <h1 class="text-6xl font-light mb-12">We&rsquo;ll be back soon!</h1>
                 <div>
                   <p class="text-xl text-gray-800 mb-8">Sorry for the inconvenience. We&rsquo;re performing some maintenance at the moment. </p>
-                  <p class="text-xl flex items-center justify-center">&mdash; BuyMeAChai<Image priority={true} width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="Coffee Gif" /></p>
+                  <p class="text-4xl flex items-center justify-center">&mdash; BuyMeAChai<Image priority={true} width={70} height={70} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="Coffee Gif" /></p>
                 </div>
               </article>
             </div>
