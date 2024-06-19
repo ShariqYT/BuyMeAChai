@@ -17,7 +17,7 @@ const Navbar = () => {
     }, [])
 
     return (
-        <nav className='flex sticky top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-filter backdrop-blur-lg justify-between items-center  text-white px-4 h-16'>
+        <nav className='flex sticky md:flex-row flex-col top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-filter backdrop-blur-lg justify-between items-center  text-white px-4 md:h-16'>
             <Link href={'/'} className='logo font-bold text-lg flex justify-center items-center hover:text-cyan-400'>BuyMeAChai!<Image priority={true} width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="Coffee Gif" /></Link>
 
             <div className='flex items-center gap-2 justify-center'>
@@ -27,7 +27,7 @@ const Navbar = () => {
                             <span className='px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>Creators</span>
                         </button>
                         {showCreators && (
-                            <div className="border overflow-y-scroll text-white border-sky-600  bg-[rgba(0,0,0,1)] absolute right-0 h-80 z-10 mt-2 w-80 rounded-xl shadow-lg">
+                            <div className="border overflow-y-scroll text-white border-sky-600  bg-[rgba(0,0,0,1)] absolute -right-48 md:right-0 h-80 z-10 mt-2 w-80 rounded-xl shadow-lg">
                             {Creators.map((creator) => (
                               <Link href={`/${creator.username}`} key={creator.username} className="flex gap-4 items-center px-4 py-2 text-sm hover:bg-sky-600">
                                 <Image alt='profile pic' className='rounded-full' width={40} height={40} unoptimized priority={true} src={creator.profilePic || '/user.png'} />
@@ -49,7 +49,7 @@ const Navbar = () => {
                                 </svg>
                             </button>
                             {showDropDown && (
-                                <div className="border border-sky-600 backdrop-blur-sm bg-[rgba(0,0,0,0.5)] absolute right-0 z-10 mt-2 w-80 rounded-xl shadow-lg">
+                                <div className="border border-sky-600 bg-[rgba(0,0,0,1)] absolute -right-6 md:right-0 z-10 mt-2 w-80 rounded-xl shadow-lg">
                                     <div className="rounded-lg bg-base-300 p-3 drop-shadow-xl divide-y divide-neutral">
                                         <div className="flex space-x-4 items-center p-4">
                                             <div className="flex mr-auto items-center space-x-4">

@@ -12,7 +12,7 @@ export const metadata = {
   description: "This website is a crowd funding platform for creators.",
 };
 export default function RootLayout({ children }) {
-  const maintenance = true;
+  const maintenance = false;
   return (
     <html lang="en">
       <head>
