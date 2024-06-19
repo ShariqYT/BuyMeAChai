@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import { Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams, useRouter } from 'next/navigation'
-import { notFound } from "next/navigation"
 import Image from 'next/image'
 
 const PaymentPage = ({ params }) => {
@@ -17,23 +16,30 @@ const PaymentPage = ({ params }) => {
         amount: 0,
         contact: 0
     })
-    const [currentUser, setCurrentUser] = useState({})
+    const [currentUser, setCurrentUser] = useState(null)
     const [payments, setPayments] = useState([])
     const { data: session } = useSession();
     const searchParams = useSearchParams();
     const router = useRouter();
-
+    const [loading, setLoading] = useState(true);
 
     const getData = useCallback(async () => {
-        let u = await fetchuser(params.username)
-        setCurrentUser(u)
-        let dbpayments = await fetchpayment(params.username)
-        setPayments(dbpayments)
+        setLoading(true);
+        try {
+            let u = await fetchuser(params.username)
+            setCurrentUser(u)
+            let dbpayments = await fetchpayment(params.username)
+            setPayments(dbpayments)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+            setLoading(false);
+        }
     }, [params.username]);
 
     useEffect(() => {
         getData()
-    }, [getData])  // Including getData as a dependency
+    }, [getData]);
 
     useEffect(() => {
         if (searchParams.get("paymentdone") == "true") {
@@ -50,7 +56,7 @@ const PaymentPage = ({ params }) => {
             });
         }
         router.push(`/${params.username}`)
-    }, [params.username, router, searchParams])  // Including params.username, router, and searchParams as dependencies
+    }, [params.username, router, searchParams]);
 
     const handleChange = (e) => {
         setPaymentform({
@@ -74,44 +80,61 @@ const PaymentPage = ({ params }) => {
             return;
         }
 
-        // Get the order ID
-        let a = await initiate(amount, params.username, paymentform)
-        let orderId = a.id
-        var options = {
-            "key": currentUser.razorpayid, // Enter the Key ID generated from the Dashboard
-            "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-            "currency": "INR",
-            "name": "Buy Me A Chai", //your business name
-            "description": "Test Transaction",
-            "image": "https://example.com/your_logo",
-            "order_id": orderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-            "callback_url": `${process.env.NEXT_PUBLIC_URL}/api/razorpay`,
-            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-                "name": paymentform.name, //your customer's name
-                "email": session?.user?.email || "", // user's email from session
-                "contact": paymentform.contact //Provide the customer's phone number for better conversion rates 
-            },
-            "notes": {
-                "address": "Razorpay Corporate Office"
-            },
-            "theme": {
-                "color": "#3399cc"
+        try {
+            let a = await initiate(amount, params.username, paymentform)
+            let orderId = a.id
+            var options = {
+                "key": currentUser.razorpayid,
+                "amount": amount,
+                "currency": "INR",
+                "name": "Buy Me A Chai",
+                "description": "Test Transaction",
+                "image": "https://example.com/your_logo",
+                "order_id": orderId,
+                "callback_url": `${process.env.NEXT_PUBLIC_URL}/api/razorpay`,
+                "prefill": {
+                    "name": paymentform.name,
+                    "email": session?.user?.email || "",
+                    "contact": paymentform.contact
+                },
+                "notes": {
+                    "address": "Razorpay Corporate Office"
+                },
+                "theme": {
+                    "color": "#3399cc"
+                }
             }
-        }
 
-        var rzp1 = new Razorpay(options);
-        rzp1.open();
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
+        } catch (error) {
+            console.error('Payment initiation error:', error);
+            toast.error('Error initiating payment', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
     }
 
     const completedPayments = payments.filter(payment => payment.done === true);
-
     const totalRaised = payments
-    .filter(payment => payment.done)
-    .reduce((total, payment) => total + payment.amount, 0);
+        .filter(payment => payment.done)
+        .reduce((total, payment) => total + payment.amount, 0);
+    const formatAmount = totalRaised.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 });
 
-    const formatAmount = 
-        totalRaised.toLocaleString('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0 });
-        
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <div className="rounded-full h-20 w-20 bg-cyan-600 animate-ping"></div>
+            </div>
+        )
+    }
     return (
         <>
             <ToastContainer
@@ -131,7 +154,7 @@ const PaymentPage = ({ params }) => {
             <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
             <div className='cover w-full relative'>
-                <Image width={2} priority={true} height={2} unoptimized className='md:object-fill object-cover w-full md:h-[340px] h-[200px]' src={`${currentUser.coverPic}`} alt="cover pic" />
+                <Image width={2} priority={true} height={2} unoptimized className='md:object-cover object-cover w-full md:h-[340px] h-[200px]' src={`${currentUser.coverPic}`} alt="cover pic" />
                 <div className='absolute -bottom-12 md:right-[47.5%] right-[39%]'>
                     <Image width={2} priority={true} height={2} unoptimized className='rounded-xl shadow-[0px_0px_10px_rgba(0,150,209,.5)] w-24 md:w-[150] md:h-[150]' src={`${currentUser.profilePic}`} alt="profile pic" />
                 </div>
@@ -201,7 +224,16 @@ const PaymentPage = ({ params }) => {
                                         <input onChange={handleChange} value={paymentform.contact || ''} placeholder='Enter Mobile Number' className='p-2 border-2 outline-none focus:border-2 focus:border-sky-600 bg-[#4b6970] border-sky-400 w-full rounded-xl' type="number" name="contact" id="contact" />
                                     </div>
                                 </div>
-                                <button disabled={paymentform.name < 3 || paymentform.amount < 1} type="button" className="disabled:opacity-50 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-md px-5 py-2.5 text-center me-2 mb-2" onClick={() => pay((paymentform.amount) * 100 || 0)}><span className="drop-shadow-[0px_0px_4px_#696969]">PAY</span></button>
+                                <button
+                                    disabled={
+                                        !(paymentform.name.length >= 3 && paymentform.amount >= 1 && paymentform.contact.length === 10)
+                                    }
+                                    type="button"
+                                    className="disabled:opacity-50 text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-md px-5 py-2.5 text-center me-2 mb-2"
+                                    onClick={() => pay((paymentform.amount) * 100 || 0)}
+                                >
+                                    <span className="drop-shadow-[0px_0px_4px_#696969]">PAY</span>
+                                </button>
                             </div>
                             {/* Or choose from these amounts */}
                             <div className='w-full font-semibold mt-5 flex gap-4'>

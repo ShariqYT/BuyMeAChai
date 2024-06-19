@@ -1,10 +1,17 @@
+"use client"
+import Changelogs from '@/components/ChangeLogs';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function Home() {
+  const [modal, setModal] = useState(true)
   return (
     <>
+      {
+        modal && (
+          <Changelogs setModal={setModal}/>
+        )}
       <div className="flex justify-center gap-4 items-center text-white h-[44vh] flex-col px-5 md:px-0">
         <div className="text-2xl md:text-5xl flex items-center justify-center font-bold">Buy Me a Chai <span><Image priority={true} unoptimized className="w-20 md:w-28 drop-shadow-[0px_0px_5px_#696969]" width={2} height={2} src="/coffee.gif" alt="" /></span></div>
         <p className='text-center text-sm md:text-base md:text-left'>A crowd funding platform for creators. Get funded by your fans and followers. Start Now!</p>
@@ -24,15 +31,15 @@ export default function Home() {
         <h2 className="text-2xl md:text-3xl text-center my-14 font-bold">Your Fans can buy you a Chai</h2>
         <div className="flex flex-col md:flex-row gap-5 justify-around">
           <div className="item flex flex-col justify-between items-center space-y-3 text-center">
-            <Image priority={true}  width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/fund.gif" alt="" />
+            <Image priority={true} width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/fund.gif" alt="" />
             <p className="font-bold text-xl">Fans want to help</p>
           </div>
           <div className="item flex flex-col justify-between items-center space-y-3 text-center">
-            <Image priority={true}  width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/coins.gif" alt="" />
+            <Image priority={true} width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/coins.gif" alt="" />
             <p className="font-bold text-xl">Fans want to contribute</p>
           </div>
           <div className="item flex flex-col justify-between items-center space-y-3 text-center">
-            <Image priority={true}  width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/group.gif" alt="" />
+            <Image priority={true} width={2} height={2} unoptimized className="rounded-[100%] w-[60vw] md:w-full drop-shadow-[0px_0px_10px_#696969]" src="/group.gif" alt="" />
             <p className="font-bold text-xl">Fans want to collaborate</p>
           </div>
         </div>
