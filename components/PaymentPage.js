@@ -237,9 +237,9 @@ const PaymentPage = ({ params }) => {
                             </div>
                             {/* Or choose from these amounts */}
                             <div className='w-full font-semibold mt-5 flex gap-4'>
-                                <button className='bg-[#4b6970] border-2 hover:bg-sky-700 border-sky-400 p-3 rounded-xl' onClick={() => pay(1000)}>Pay ₹10</button>
-                                <button className='bg-[#4b6970] border-2 hover:bg-sky-700 border-sky-400 p-3 rounded-xl' onClick={() => pay(5000)}>Pay ₹50</button>
-                                <button className='bg-[#4b6970] border-2 hover:bg-sky-700 border-sky-400 p-3 rounded-xl' onClick={() => pay(10000)}>Pay ₹100</button>
+                                <button className='md:text-base text-sm bg-[#4b6970] border-2 hover:bg-sky-700 border-sky-400 p-3 rounded-xl' onClick={() => pay(1000)}>Pay ₹10</button>
+                                <button className='md:text-base text-sm bg-[#4b6970] border-2 hover:bg-sky-700 border-sky-400 p-3 rounded-xl' onClick={() => pay(5000)}>Pay ₹50</button>
+                                <button className='md:text-base text-sm bg-[#4b6970] border-2 hover:bg-sky-700 border-sky-400 p-3 rounded-xl' onClick={() => pay(10000)}>Pay ₹100</button>
                             </div>
                         </div>
                     </div>

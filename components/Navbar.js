@@ -3,42 +3,19 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { useSession, signOut } from "next-auth/react"
 import Image from 'next/image'
+import Search from './Search'
 
 const Navbar = () => {
     const { data: session } = useSession()
-    const [showDropDown, setShowDropDown] = useState(false)
-    const [showCreators, setShowCreators] = useState(false)
+    const [showDropDown, setShowDropDown] = useState(true)
     const [Creators, setCreators] = useState([])
 
-    useEffect(() => {
-        fetch('/api/creators')
-            .then(res => res.json())
-            .then(data => setCreators(data))
-    }, [])
-
     return (
-        <nav className='flex sticky md:flex-row flex-col top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-filter backdrop-blur-lg justify-between items-center  text-white px-4 md:h-16'>
-            <Link href={'/'} className='logo font-bold text-lg flex justify-center items-center hover:text-cyan-400'>BuyMeAChai!<Image priority={true} width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="Coffee Gif" /></Link>
+        <nav className='flex sticky py-2 md:py-0 top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-filter  backdrop-blur-lg justify-between items-center  text-white px-4 md:h-16'>
+            <Link href={'/'} className='flex justify-center items-center'><span className='font-bold text-3xl hover:text-cyan-400 font-Fasthand md:block hidden'>Buy me a chai</span><Image priority={true} width={50} height={50} unoptimized className="drop-shadow-[0px_0px_5px_#a1a1a1]" src="/coffee.gif" alt="Coffee Gif" /></Link>
 
-            <div className='flex items-center gap-2 justify-center'>
-                <div>
-                    <div className="relative" onBlur={() => setTimeout(() => setShowCreators(false), 200)}>
-                        <button onClick={() => setShowCreators(!showCreators)} className="flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                            <span className='px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0'>Creators</span>
-                        </button>
-                        {showCreators && (
-                            <div className="border overflow-y-scroll text-white border-sky-600  bg-[rgba(0,0,0,1)] absolute -right-48 md:right-0 h-80 z-10 mt-2 w-80 rounded-xl shadow-lg">
-                            {Creators.map((creator) => (
-                              <Link href={`/${creator.username}`} key={creator.username} className="flex gap-4 items-center px-4 py-2 text-sm hover:bg-sky-600">
-                                <Image alt='profile pic' className='rounded-full' width={40} height={40} unoptimized priority={true} src={creator.profilePic || '/user.png'} />
-                                <p className='text-white'>{creator.username}</p>
-                              </Link>
-                            ))}
-                          </div>
-                          
-                        )}
-                    </div>
-                </div>
+            <div className='flex items-center md:gap-8 justify-center'>
+                <Search />
                 <div>
                     {session ? (
                         <div className="relative" onBlur={() => setTimeout(() => setShowDropDown(false), 200)}>
@@ -49,7 +26,7 @@ const Navbar = () => {
                                 </svg>
                             </button>
                             {showDropDown && (
-                                <div className="border border-sky-600 bg-[rgba(0,0,0,1)] absolute -right-6 md:right-0 z-10 mt-2 w-80 rounded-xl shadow-lg">
+                                <div className="border border-sky-600 bg-[rgba(0,0,0,1)] absolute right-4 md:right-0 z-10 mt-2 w-80 rounded-xl shadow-lg">
                                     <div className="rounded-lg bg-base-300 p-3 drop-shadow-xl divide-y divide-neutral">
                                         <div className="flex space-x-4 items-center p-4">
                                             <div className="flex mr-auto items-center space-x-4">
@@ -111,9 +88,9 @@ const Navbar = () => {
                         </div>
                     ) : (
                         <Link href={'/login'}>
-                            <button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
-                                <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
-                                    Login / Sign up
+                            <button className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-[12px] md:text-[16px] font-medium text-gray-900 rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800">
+                                <span className="relative px-6 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+                                    Login
                                 </span>
                             </button>
                         </Link>
