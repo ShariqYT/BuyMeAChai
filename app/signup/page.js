@@ -79,7 +79,7 @@ const Signup = () => {
                     className="bg-gradient-to-r from-blue-500 to-cyan-300 rounded-[26px] m-4 "
                 >
                     <div
-                        className="border-[20px] border-transparent rounded-[20px] bg-cyan-950 shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2"
+                        className="border-[20px] border-transparent rounded-[20px] bg-cyan-950 shadow-lg xl:p-10 2xl:p-10 lg:p-10 lg:p-10 sm:p-2 m-2"
                     >
                         <h1 className="mt-1 mb-14 font-bold text-5xl text-gray-200 text-center cursor-default">
                             Sign up

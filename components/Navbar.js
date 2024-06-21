@@ -27,9 +27,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className='flex sticky py-2 md:py-0 top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-filter  backdrop-blur-lg justify-between items-center text-white px-4 md:h-16'>
+    <nav className='flex sticky py-2 lg:py-0 top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-filter  backdrop-blur-lg justify-between items-center text-white px-4 lg:h-16'>
       <Link href={'/'} className='flex justify-center items-center'>
-        <span className='font-bold text-3xl hover:text-cyan-400 font-Fasthand md:block hidden'>
+        <span className='font-bold text-3xl hover:text-cyan-400 font-Fasthand lg:block hidden'>
           Buy me a chai
         </span>
         <Image
@@ -43,7 +43,7 @@ const Navbar = () => {
         />
       </Link>
 
-      <div className='flex items-center md:gap-8 justify-center'>
+      <div className='flex items-center lg:gap-8 justify-center'>
         <Search />
         <div>
           {session ? (
@@ -51,9 +51,9 @@ const Navbar = () => {
               <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setShowDropDown(!showDropDown)}
-                className="flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+                className="flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden font-medium text-gray-900 rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
               >
-                <span className='relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0'>
+                <span className='relative text-[12px] truncate w-[16vh] lg:w-fit lg:text-[14px] px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0'>
                   {session.user.name}
                 </span>
                 <motion.div
@@ -93,7 +93,7 @@ const Navbar = () => {
                   },
                 }}
                 style={{ pointerEvents: showDropDown ? 'auto' : 'none' }}
-                className="border-2 overflow-y-scroll text-white border-sky-600 bg-[rgba(0,0,0,1)] absolute right-4 md:right-0 z-10 mt-2 w-80 rounded-xl shadow-lg"
+                className="border-2 overflow-y-scroll text-white border-sky-600 bg-[rgba(0,0,0,1)] absolute right-4 lg:right-0 z-10 mt-2 w-80 rounded-xl shadow-lg"
               >
                 <div className="rounded-lg bg-base-300 p-3 drop-shadow-xl divide-y divide-neutral">
                   <motion.div className="flex space-x-4 items-center truncate p-4" variants={itemVariants}>
@@ -201,7 +201,7 @@ const Navbar = () => {
             <Link href={'/login'}>
               <motion.button
                 whileTap={{ scale: 0.97 }}
-                className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-[12px] md:text-[16px] font-medium text-gray-900 rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
+                className=" flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-[12px] lg:text-[16px] font-medium text-gray-900 rounded-full group bg-gradient-to-br from-cyan-500 to-blue-500 group-hover:from-cyan-500 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-cyan-200 dark:focus:ring-cyan-800"
               >
                 <span className="relative px-6 py-2 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
                   Login

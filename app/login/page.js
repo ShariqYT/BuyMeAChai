@@ -54,7 +54,7 @@ const Login = () => {
                     className="bg-gradient-to-r from-blue-500 to-cyan-300 rounded-[26px] m-4 "
                 >
                     <div
-                        className="border-[20px] border-transparent rounded-[20px] bg-cyan-950 shadow-lg xl:p-10 2xl:p-10 lg:p-10 md:p-10 sm:p-2 m-2"
+                        className="border-[20px] border-transparent rounded-[20px] bg-cyan-950 shadow-lg xl:p-10 2xl:p-10 lg:p-10 lg:p-10 sm:p-2 m-2"
                     >
                         <motion.h1 viewport={{once: true}} initial={{y: -50,opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1 }} className="mt-1 mb-14 font-bold text-5xl text-gray-200 text-center cursor-default">
                             Login
@@ -62,7 +62,7 @@ const Login = () => {
                         {error && (<div className='border mb-8 dark:bg-red-200 dark:border-red-500 p-3 shadow-md  outline-none rounded-lg w-full ease-in-out duration-300'>
                             <p className="text-red-500 font-semibold">{error}</p>
                         </div>)}
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit} className="space-y-4 overflow-hidden">
                             <div>
                                 <motion.label viewport={{once: true}} initial={{x: 20,opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.1 }} htmlFor="email" className="mb-2 dark:text-gray-200 text-lg">Email</motion.label>
                                 <motion.input viewport={{once: true}} initial={{x: -50,opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.1 }} onChange={e => setEmail(e.target.value)}
