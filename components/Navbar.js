@@ -27,7 +27,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className='flex sticky py-2 lg:py-0 top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-filter  backdrop-blur-lg justify-between items-center text-white px-4 lg:h-16'>
+    <nav className='flex sticky py-2 lg:py-0 top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-blur justify-between items-center text-white px-4 lg:h-16'> 
       <Link href={'/'} className='flex justify-center items-center'>
         <span className='font-bold text-3xl hover:text-cyan-400 font-Fasthand lg:block hidden'>
           Buy me a chai

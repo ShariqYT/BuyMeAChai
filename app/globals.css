@@ -40,3 +40,8 @@
   transition: all .2s ease;
   font-family: 'poppins', sans-serif;
 }
+
+.backdrop-blur {
+  -webkit-backdrop-filter: blur(16px); 
+  backdrop-filter: blur(16px);
+}
