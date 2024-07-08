@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import Script from 'next/script'
 import { fetchuser, fetchpayment, initiate } from '@/actions/userAction'
 import { useSession } from 'next-auth/react'
-import toast, { ToastContainer } from 'react-toastify'
+import  {toast, ToastContainer } from 'react-toastify'
 import { Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams, useRouter } from 'next/navigation'

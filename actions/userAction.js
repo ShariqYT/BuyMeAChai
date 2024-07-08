@@ -36,6 +36,12 @@ export const fetchpayment = async (username) => {
     return p
 }
 
+export const fetchCreators = async () => {
+    await connectDB();
+    let c = await User.find({}).lean()
+    return c
+}
+
 export const updateProfile = async (data, oldusername) => {
     await connectDB();
     let ndata = data

@@ -17,14 +17,6 @@ const itemVariants = {
 
 const Navbar = () => {
   const { data: session } = useSession();
-  const [showDropDown, setShowDropDown] = useState(false);
-  const [creators, setCreators] = useState([]);
-
-  useEffect(() => {
-    fetch('/api/creators')
-      .then((res) => res.json())
-      .then((data) => setCreators(data));
-  }, []);
 
   return (
     <nav className='flex sticky py-2 lg:py-0 top-0 z-50 bg-[rgba(0,0,0,0.5)] backdrop-blur justify-between items-center text-white px-4 lg:h-16'> 

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { fetchCreators } from '@/actions/userAction';
 
 const itemVariants = {
   open: {
@@ -16,11 +17,18 @@ const Search = () => {
   const [showCreators, setShowCreators] = useState(false);
   const [creators, setCreators] = useState([]);
 
-  useEffect(() => {
-    fetch('/api/creators')
-      .then((res) => res.json())
-      .then((data) => setCreators(data));
+  const getData = useCallback(async () => {
+    try {
+      let c = await fetchCreators()
+      setCreators(c)
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   }, []);
+
+  useEffect(() => {
+    getData()
+  }, [getData]);
 
   return (
     <div
