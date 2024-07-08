@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import Script from 'next/script'
 import { fetchuser, fetchpayment, initiate } from '@/actions/userAction'
 import { useSession } from 'next-auth/react'
-import { ToastContainer, toast } from 'react-toastify'
+import toast, { ToastContainer } from 'react-toastify'
 import { Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams, useRouter } from 'next/navigation'
@@ -154,24 +154,24 @@ const PaymentPage = ({ params }) => {
             <ToastContainer />
             <Script src="https://checkout.razorpay.com/v1/checkout.js"></Script>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{duration: 1}} className='cover w-full relative'>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className='cover w-full relative'>
                 <Image width={2} priority={true} height={2} unoptimized className='lg:object-cover object-cover w-full lg:h-[340px] h-[200px]' src={`${currentUser.coverPic}`} alt="cover pic" />
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{duration: 1}} className='absolute -bottom-12 lg:right-[47.5%] right-[39%]'>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className='absolute -bottom-12 lg:right-[47.5%] right-[39%]'>
                     <Image width={2} priority={true} height={2} unoptimized className='rounded-xl shadow-[0px_0px_10px_rgba(0,150,209,.5)] w-24 lg:w-[150] lg:h-[150]' src={`${currentUser.profilePic}`} alt="profile pic" />
                 </motion.div>
             </motion.div>
             <div className='info flex overflow-hidden flex-col justify-center lg:items-center my-20'>
-                <motion.p initial={{ z: -100, y:-50, opacity: 0 }} animate={{ z:0, y:0, opacity: 1 }} transition={{duration: 1, delay: 0.5}} className=' text-center font-bold text-3xl mb-4'>@{currentUser.username}</motion.p>
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{duration: 1, delay: 1}} className='text-lg text-center text-gray-300'>
+                <motion.p initial={{ z: -100, y: -50, opacity: 0 }} animate={{ z: 0, y: 0, opacity: 1 }} transition={{ duration: 1, delay: 0.5 }} className=' text-center font-bold text-3xl mb-4'>@{currentUser.username}</motion.p>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1 }} className='text-lg text-center text-gray-300'>
                     Show some supports for {currentUser.name}
                 </motion.div>
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{duration: 1, delay: 1}} className='text-md mt-5 text-center text-gray-400'>
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1 }} className='text-md mt-5 text-center text-gray-400'>
                     {/* show only those whose payment is done */}
                     <p><span className='font-bold'>{completedPayments.length}</span> Supporters</p>
                     <p><span className='font-bold'>{formatAmount}</span> Raised</p>
                 </motion.div>
                 <div className="payment flex m-5 flex-col lg:flex-row gap-6 lg:w-[70%] my-20">
-                    <motion.div initial={{ x: -100,opacity: 0 }} animate={{ x: 0,opacity: 1 }} transition={{duration: 1, delay: 1.5}} className="suppoters lg:w-1/2 w-full bg-zinc-950 border border-cyan-500 rounded-xl p-5 lg:p-10">
+                    <motion.div initial={{ x: -100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 1, delay: 1.5 }} className="suppoters lg:w-1/2 w-full bg-zinc-950 border border-cyan-500 rounded-xl p-5 lg:p-10">
                         <div>
                             <p className='text-xl font-semibold mb-10'>About <span className='capitalize'>{currentUser.name}</span></p>
                             <p className='mb-4'>Hi! I am {currentUser.name}, and we're a group of volunteers working on a new social media and portfolio platform for artists and art enthusiasts.</p>
@@ -198,7 +198,7 @@ const PaymentPage = ({ params }) => {
 
                         </ul>
                     </motion.div>
-                    <motion.div initial={{ x: 100,opacity: 0 }} animate={{ x: 0,opacity: 1 }} transition={{duration: 1, delay: 1.5}} className="suppoters lg:w-1/2 w-full bg-zinc-950 border border-cyan-500 rounded-xl p-5 lg:p-10">
+                    <motion.div initial={{ x: 100, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 1, delay: 1.5 }} className="suppoters lg:w-1/2 w-full bg-zinc-950 border border-cyan-500 rounded-xl p-5 lg:p-10">
                         <div className='flex gap-2 items-center'>
                             <h2 className='font-bold text-3xl'>Buy <span className='capitalize'>{currentUser.name}</span> a Chai </h2><span className='ring-1 text-xs ring-white rounded-full px-2 p-0.5'>?</span>
                         </div>
